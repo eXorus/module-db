@@ -3,11 +3,18 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  services:
-    postgresql
-      image: postgresql
-    mysql
-      image: mysql
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container: node:10.18-jessie
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
   tests:
     runs-on: ubuntu-latest
 
